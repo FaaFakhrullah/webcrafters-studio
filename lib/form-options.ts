@@ -52,7 +52,10 @@ export const quotationClientSchema = z.object({
   budgetRange: safeText(2, 191),
   timeline: safeText(2, 191),
   requiredFeatures: z.array(z.string()).min(1),
-  existingWebsiteUrl: z.string().max(255).optional().default(""),
+  existingWebsiteUrl: z
+    .union([z.string().url().max(255), z.literal("")])
+    .optional()
+    .default(""),
   projectDescription: safeText(10, 5000),
   fileUrl: z.string().max(255).optional().default(""),
   consent: z.literal(true),

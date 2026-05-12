@@ -78,6 +78,8 @@ export function QuotationForm() {
     form.reset();
   }
 
+  const formErrors = form.formState.errors;
+
   return (
     <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
       <input type="text" className="hidden" tabIndex={-1} autoComplete="off" {...form.register("website")} />
@@ -85,20 +87,24 @@ export function QuotationForm() {
         <div>
           <Label htmlFor="fullName">Full name</Label>
           <Input id="fullName" {...form.register("fullName")} />
+          {formErrors.fullName ? <p className="mt-1 text-xs text-red-600">{formErrors.fullName.message}</p> : null}
         </div>
         <div>
           <Label htmlFor="companyName">Company / organization name</Label>
           <Input id="companyName" {...form.register("companyName")} />
+          {formErrors.companyName ? <p className="mt-1 text-xs text-red-600">{formErrors.companyName.message}</p> : null}
         </div>
       </div>
       <div className="grid gap-4 md:grid-cols-2">
         <div>
           <Label htmlFor="email">Email</Label>
           <Input id="email" type="email" {...form.register("email")} />
+          {formErrors.email ? <p className="mt-1 text-xs text-red-600">{formErrors.email.message}</p> : null}
         </div>
         <div>
           <Label htmlFor="phone">Phone number</Label>
           <Input id="phone" {...form.register("phone")} />
+          {formErrors.phone ? <p className="mt-1 text-xs text-red-600">{formErrors.phone.message}</p> : null}
         </div>
       </div>
       <div className="grid gap-4 md:grid-cols-2">
@@ -169,11 +175,17 @@ export function QuotationForm() {
             </label>
           ))}
         </div>
+        {formErrors.requiredFeatures ? (
+          <p className="mt-1 text-xs text-red-600">Select at least one required feature.</p>
+        ) : null}
       </div>
       <div className="grid gap-4 md:grid-cols-2">
         <div>
           <Label htmlFor="existingWebsiteUrl">Existing website URL</Label>
           <Input id="existingWebsiteUrl" placeholder="https://example.com" {...form.register("existingWebsiteUrl")} />
+          {formErrors.existingWebsiteUrl ? (
+            <p className="mt-1 text-xs text-red-600">{formErrors.existingWebsiteUrl.message}</p>
+          ) : null}
         </div>
         <div>
           <Label htmlFor="fileUpload">File upload (local placeholder)</Label>
@@ -190,11 +202,19 @@ export function QuotationForm() {
       <div>
         <Label htmlFor="projectDescription">Project description</Label>
         <Textarea id="projectDescription" {...form.register("projectDescription")} />
+        {formErrors.projectDescription ? (
+          <p className="mt-1 text-xs text-red-600">{formErrors.projectDescription.message}</p>
+        ) : null}
       </div>
       <label className="flex items-start gap-2 text-sm text-slate-700">
         <Checkbox {...form.register("consent")} />
         <span>I consent to be contacted by WebCrafters Studio regarding this project request.</span>
       </label>
+      {formErrors.consent ? <p className="text-xs text-red-600">Please provide consent before submitting.</p> : null}
+
+      {Object.keys(formErrors).length > 0 ? (
+        <FormErrorMessage message="Please fix the highlighted fields before submitting your quotation request." />
+      ) : null}
 
       {serverError && <FormErrorMessage message={serverError} />}
       {success && <FormSuccessMessage message={success} />}

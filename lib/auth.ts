@@ -40,9 +40,11 @@ export async function verifySessionToken(token: string) {
 
 export async function setSessionCookie(token: string) {
   const cookieStore = await cookies();
+  const appUrl = process.env.NEXTAUTH_URL || process.env.PUBLIC_SITE_URL || "";
+  const useSecureCookie = process.env.NODE_ENV === "production" && appUrl.startsWith("https://");
   cookieStore.set(SESSION_COOKIE_NAME, token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure: useSecureCookie,
     sameSite: "lax",
     path: "/",
     maxAge: SESSION_TTL

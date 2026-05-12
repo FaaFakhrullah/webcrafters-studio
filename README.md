@@ -171,6 +171,10 @@ Update these areas:
 - 429 errors on forms: rate limiter is active by design; retry later.
 - Admin route blocked: ensure valid login session cookie is present.
 
+## User Manual
+- Quotation end-to-end flow and sample test cases:
+  - `docs/quotation-user-manual.md`
+
 ## Important Security Notes
 - Change `NEXTAUTH_SECRET` and admin credentials before production.
 - Use HTTPS in production.
