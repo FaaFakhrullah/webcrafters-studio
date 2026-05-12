@@ -9,19 +9,28 @@ import { PackageCard } from "@/components/marketing/package-card";
 import { PortfolioCard } from "@/components/marketing/portfolio-card";
 import { ProcessSteps } from "@/components/marketing/process-steps";
 import { ServiceCard } from "@/components/marketing/service-card";
+import { TemplateThemeShowcase } from "@/components/marketing/template-theme-showcase";
 import { TestimonialCard } from "@/components/marketing/testimonial-card";
 import { TrustBadges } from "@/components/marketing/trust-badges";
 import { Button } from "@/components/ui/button";
-import { getActiveFaqs, getActivePackages, getActivePortfolio, getActiveServices, getActiveTestimonials } from "@/lib/data";
+import {
+  getActiveFaqs,
+  getActivePackages,
+  getActivePortfolio,
+  getActiveServices,
+  getActiveTemplateThemes,
+  getActiveTestimonials
+} from "@/lib/data";
 import { toArray } from "@/lib/utils";
 
 export default async function HomePage() {
-  const [services, packagesData, portfolio, testimonials, faqs] = await Promise.all([
+  const [services, packagesData, portfolio, testimonials, faqs, templateThemes] = await Promise.all([
     getActiveServices(6),
     getActivePackages(),
     getActivePortfolio(true),
     getActiveTestimonials(),
-    getActiveFaqs(6)
+    getActiveFaqs(6),
+    getActiveTemplateThemes()
   ]);
 
   return (
@@ -56,6 +65,22 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      <TemplateThemeShowcase
+        mode="preview"
+        items={templateThemes.map((item: any) => ({
+          id: item.id,
+          slug: item.slug,
+          code: item.code,
+          name: item.name,
+          category: item.category,
+          description: item.description,
+          templateUrl: item.templateUrl,
+          sourceUrl: item.sourceUrl || `https://templatemo.com/tm-${item.code.replace("TM ", "")}-${item.slug}`,
+          previewImageUrl: item.previewImageUrl || `/images/template-themes/${item.slug}.jpg`,
+          previewClass: item.previewClass
+        }))}
+      />
 
       <section className="page-section bg-slate-50">
         <div className="container-shell">

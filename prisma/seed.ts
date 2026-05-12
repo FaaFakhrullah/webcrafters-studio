@@ -1,1 +1,380 @@
-import { PrismaClient, UserRole } from "@prisma/client";import bcrypt from "bcryptjs";const prisma = new PrismaClient();async function main() {  const adminEmail = process.env.ADMIN_EMAIL || "admin@example.com";  const adminPassword = process.env.ADMIN_PASSWORD || "ChangeThisPassword123!";  const passwordHash = await bcrypt.hash(adminPassword, 12);  await prisma.user.upsert({    where: { email: adminEmail },    create: {      name: "WebCrafters Admin",      email: adminEmail,      passwordHash,      role: UserRole.ADMIN    },    update: {      passwordHash,      role: UserRole.ADMIN    }  });  const services = [    {      title: "Business Website Development",      slug: "business-website-development",      description: "Professional company websites designed to build trust and convert visitors into leads.",      features: ["Responsive pages", "Lead capture forms", "WhatsApp integration", "Basic SEO setup"],      timeline: "5-14 working days",      startingPrice: "From RM1,500",      category: "Business"    },    {      title: "Government/Agency Website Development",      slug: "government-agency-website-development",      description: "Structured websites with accessibility and governance-focused workflows for agencies.",      features: ["Clear information architecture", "Document modules", "Security hardening baseline", "Training handover"],      timeline: "3-8 weeks",      startingPrice: "From RM8,000",      category: "Government"    },    {      title: "E-commerce Website",      slug: "ecommerce-website",      description: "Conversion-oriented online stores with secure checkout and product management.",      features: ["Product catalog", "Order management", "Payment gateway option", "Performance optimization"],      timeline: "2-6 weeks",      startingPrice: "From RM4,000",      category: "E-commerce"    },    {      title: "Landing Page Development",      slug: "landing-page-development",      description: "Focused campaign pages built for paid ads, launches, and lead generation.",      features: ["Single-page design", "Fast loading", "CTA optimization", "Form integration"],      timeline: "3-5 working days",      startingPrice: "From RM900",      category: "Marketing"    },    {      title: "Company Profile Website",      slug: "company-profile-website",      description: "Professional profile websites for SMEs and organizations establishing online presence.",      features: ["About and service pages", "Contact and map section", "Brand-focused layout", "Mobile optimization"],      timeline: "5-10 working days",      startingPrice: "From RM1,200",      category: "Business"    },    {      title: "Web Application Development",      slug: "web-application-development",      description: "Custom web applications for internal operations, client portals, and digital workflows.",      features: ["Custom modules", "Role-based access", "API-ready architecture", "Secure authentication"],      timeline: "4-12 weeks",      startingPrice: "From RM10,000",      category: "System"    },    {      title: "System Dashboard Development",      slug: "system-dashboard-development",      description: "Data dashboards and reporting interfaces to improve visibility and decision making.",      features: ["KPI widgets", "Filters and charts", "Export-ready reports", "User activity logs"],      timeline: "3-8 weeks",      startingPrice: "From RM6,500",      category: "Dashboard"    },    {      title: "Website Redesign",      slug: "website-redesign",      description: "Modern redesign for outdated websites with improved structure, speed, and UX.",      features: ["UI/UX refresh", "Content restructuring", "SEO-friendly rebuild", "Performance tuning"],      timeline: "2-6 weeks",      startingPrice: "From RM2,500",      category: "Optimization"    },    {      title: "Website Maintenance",      slug: "website-maintenance",      description: "Ongoing support for updates, monitoring, backups, and issue resolution.",      features: ["Monthly updates", "Security checks", "Backup monitoring", "Priority support"],      timeline: "Monthly plan",      startingPrice: "From RM300/month",      category: "Support"    },    {      title: "SEO Basic Setup",      slug: "seo-basic-setup",      description: "Foundational on-page SEO setup for better visibility in search engines.",      features: ["Meta tags", "Sitemap", "Robots.txt", "Structured heading setup"],      timeline: "2-5 working days",      startingPrice: "From RM600",      category: "SEO"    },    {      title: "Hosting/Domain Setup",      slug: "hosting-domain-setup",      description: "Reliable setup and configuration for hosting, SSL, and domain records.",      features: ["DNS configuration", "SSL setup", "Deployment support", "Email DNS records"],      timeline: "1-3 working days",      startingPrice: "From RM350",      category: "Infrastructure"    },    {      title: "Security Hardening",      slug: "security-hardening",      description: "Practical hardening for web projects to reduce common vulnerabilities.",      features: ["Security headers", "Input validation review", "Access policy checks", "Audit recommendations"],      timeline: "3-7 working days",      startingPrice: "From RM1,000",      category: "Security"    }  ];  for (const service of services) {    await prisma.service.upsert({      where: { slug: service.slug },      create: service,      update: service    });  }  const packages = [    {      name: "Starter Package",      slug: "starter-package",      description: "Ideal for small businesses and freelancers launching a professional presence.",      features: [        "1-5 pages",        "Responsive design",        "Contact form",        "Basic SEO setup",        "WhatsApp button",        "Basic speed optimization"      ],      price: "RM1,500",      priceLabel: "Starting from RM1,500",      deliveryTimeline: "5-7 working days",      bestFor: "Small businesses, freelancers, personal brands",      isPopular: false    },    {      name: "Business Package",      slug: "business-package",      description: "Balanced package for SMEs and organizations needing richer functionality.",      features: [        "5-10 pages",        "Admin panel optional",        "Portfolio/blog/news section",        "WhatsApp integration",        "Basic analytics",        "SEO-friendly structure"      ],      price: "RM3,800",      priceLabel: "Starting from RM3,800",      deliveryTimeline: "10-14 working days",      bestFor: "SMEs, companies, agencies, organizations",      isPopular: true    },    {      name: "Professional Package",      slug: "professional-package",      description: "For businesses requiring integrations and custom workflows.",      features: [        "Custom design",        "Database integration",        "Admin dashboard",        "User management",        "API integration",        "Security setup",        "Role-based features"      ],      price: "RM9,500",      priceLabel: "Starting from RM9,500",      deliveryTimeline: "3-6 weeks",      bestFor: "Companies needing custom features",      isPopular: false    },    {      name: "Custom Enterprise Package",      slug: "custom-enterprise-package",      description: "Tailored enterprise systems for complex workflows and governance requirements.",      features: [        "Fully customized system",        "Multi-role access",        "Advanced dashboard",        "Reporting module",        "Payment gateway option",        "Maintenance contract"      ],      price: "",      priceLabel: "Custom quotation",      deliveryTimeline: "Timeline based on scope",      bestFor: "Government, corporate, high-complexity operations",      isPopular: false    }  ];  for (const pkg of packages) {    await prisma.package.upsert({      where: { slug: pkg.slug },      create: pkg,      update: pkg    });  }  const portfolioItems = [    {      title: "Corporate Profile Website",      slug: "corporate-profile-website",      category: "Business Website",      description: "A polished corporate website with services, leadership profile, and inquiry funnels.",      imageUrl: "/images/portfolio-placeholder.svg",      technologies: ["Next.js", "Tailwind CSS", "Prisma"],      isFeatured: true    },    {      title: "Government Asset Management Portal",      slug: "government-asset-management-portal",      category: "Government",      description: "Internal portal for asset tracking, approvals, and reporting for agency teams.",      imageUrl: "/images/portfolio-placeholder.svg",      technologies: ["Next.js", "MySQL", "Prisma", "Role-based access"],      isFeatured: true    },    {      title: "SME E-commerce Store",      slug: "sme-ecommerce-store",      category: "E-commerce",      description: "Multi-category online store with promotional campaigns and product search.",      imageUrl: "/images/portfolio-placeholder.svg",      technologies: ["Next.js", "Stripe-ready", "MySQL"],      isFeatured: true    },    {      title: "Clinic Appointment Website",      slug: "clinic-appointment-website",      category: "Web Application",      description: "Appointment booking workflow and consultation reminders for a healthcare provider.",      imageUrl: "/images/portfolio-placeholder.svg",      technologies: ["Next.js", "React Hook Form", "Nodemailer"],      isFeatured: false    },    {      title: "Company Dashboard System",      slug: "company-dashboard-system",      category: "Dashboard",      description: "KPI dashboard with weekly progress tracking and downloadable reporting.",      imageUrl: "/images/portfolio-placeholder.svg",      technologies: ["Next.js", "Prisma", "Chart-ready modules"],      isFeatured: false    },    {      title: "Landing Page for Marketing Campaign",      slug: "landing-page-marketing-campaign",      category: "Landing Page",      description: "High-conversion landing page for event registration and paid campaigns.",      imageUrl: "/images/portfolio-placeholder.svg",      technologies: ["Next.js", "Tailwind CSS"],      isFeatured: false    },    {      title: "NGO Information Portal",      slug: "ngo-information-portal",      category: "Business Website",      description: "Information hub for programs, donation campaigns, and organization updates.",      imageUrl: "/images/portfolio-placeholder.svg",      technologies: ["Next.js", "MySQL", "CMS-ready structure"],      isFeatured: false    }  ];  for (const item of portfolioItems) {    await prisma.portfolio.upsert({      where: { slug: item.slug },      create: item,      update: item    });  }  const testimonials = [    {      clientName: "Nur Aisyah",      companyName: "Aisyah Logistics",      role: "Managing Director",      message: "The team translated our requirements into a clean website and delivered on schedule.",      rating: 5    },    {      clientName: "Farid Hakim",      companyName: "FH Digital Ventures",      role: "Founder",      message: "Clear communication, transparent quotation, and professional execution from start to launch.",      rating: 5    },    {      clientName: "Siti Marina",      companyName: "Marina Clinic Group",      role: "Operations Lead",      message: "Our appointment workflow is now smoother, and patients can contact us much faster.",      rating: 5    },    {      clientName: "Daniel Tan",      companyName: "SME Growth Hub",      role: "Marketing Manager",      message: "Performance and mobile responsiveness improved significantly after redesign.",      rating: 4    },    {      clientName: "Hannah Lee",      companyName: "BrightPath NGO",      role: "Program Coordinator",      message: "The website structure is easy for our team to maintain and update.",      rating: 5    }  ];  await prisma.testimonial.deleteMany();  await prisma.testimonial.createMany({ data: testimonials });  const faqs = [    ["How long does it take to build a website?", "Typical timelines range from 5 working days for simple websites to 6 weeks for custom systems, depending on scope."],    ["Do you provide hosting and domain?", "Yes. We can assist with hosting and domain setup and provide guidance on ownership and renewal."],    ["Can I request custom features?", "Yes. We build custom modules such as dashboards, booking workflows, and integrations based on requirements."],    ["Do you provide maintenance?", "Yes. Monthly maintenance options are available for updates, monitoring, and support."],    ["Can you redesign my old website?", "Yes. We can modernize your UI, improve speed, and restructure content for better conversion."],    ["Do I need to provide content?", "Providing content is recommended, but we can assist with copy structure and guidance."],    ["Do you support government-style systems?", "Yes. We support role-based systems and structured workflows suitable for agencies and organizations."],    ["Is payment one-time or monthly?", "Project development is usually milestone-based. Maintenance and hosting can be monthly or annual."],    ["Can you build an admin dashboard?", "Yes. We can build admin dashboards with reporting, user roles, and workflow management."],    ["Do you provide SEO?", "Yes. We include basic SEO setup and can recommend advanced SEO plans when required."],    ["Can you integrate WhatsApp?", "Yes. WhatsApp call-to-action and lead capture flows can be integrated across pages."],    ["Can you build e-commerce websites?", "Yes. We build scalable e-commerce stores with catalog, checkout, and order management."],    ["Can you build custom systems?", "Yes. We build web applications tailored to your workflow and operational goals."],    ["What information do I need to provide before getting a quotation?", "Share your goals, required features, preferred timeline, budget range, and any reference sites." ]  ];  await prisma.fAQ.deleteMany();  await prisma.fAQ.createMany({    data: faqs.map(([question, answer], index) => ({      question,      answer,      category: "General",      sortOrder: index + 1    }))  });  const settings = {    companyName: process.env.PUBLIC_COMPANY_NAME || "WebCrafters Studio",    email: process.env.PUBLIC_CONTACT_EMAIL || "hello@webcraftersstudio.com",    phone: process.env.PUBLIC_CONTACT_PHONE || "+60 12-345 6789",    whatsappNumber: process.env.PUBLIC_WHATSAPP_NUMBER || "60123456789",    address: "Kuala Lumpur, Malaysia (by appointment)",    businessHours: "Mon-Fri, 9:00 AM - 6:00 PM",    facebookUrl: "https://facebook.com",    instagramUrl: "https://instagram.com",    linkedinUrl: "https://linkedin.com"  };  const currentSetting = await prisma.siteSetting.findFirst();  if (!currentSetting) {    await prisma.siteSetting.create({ data: settings });  } else {    await prisma.siteSetting.update({ where: { id: currentSetting.id }, data: settings });  }  console.log("Seed completed.");}main()  .catch((e) => {    console.error(e);    process.exit(1);  })  .finally(async () => {    await prisma.$disconnect();  });
+import { PrismaClient, UserRole } from "@prisma/client";
+import bcrypt from "bcryptjs";
+import { TEMPLATE_THEME_CATALOG } from "@/lib/template-theme-catalog";
+
+const prisma = new PrismaClient();
+
+async function main() {
+  const adminEmail = process.env.ADMIN_EMAIL || "admin@example.com";
+  const adminPassword = process.env.ADMIN_PASSWORD || "ChangeThisPassword123!";
+  const passwordHash = await bcrypt.hash(adminPassword, 12);
+
+  await prisma.user.upsert({
+    where: { email: adminEmail },
+    create: {
+      name: "WebCrafters Admin",
+      email: adminEmail,
+      passwordHash,
+      role: UserRole.ADMIN
+    },
+    update: {
+      passwordHash,
+      role: UserRole.ADMIN
+    }
+  });
+
+  const services = [
+    {
+      title: "Business Website Development",
+      slug: "business-website-development",
+      description: "Professional company websites designed to build trust and convert visitors into leads.",
+      features: ["Responsive pages", "Lead capture forms", "WhatsApp integration", "Basic SEO setup"],
+      timeline: "5-14 working days",
+      startingPrice: "From RM1,500",
+      category: "Business"
+    },
+    {
+      title: "Government/Agency Website Development",
+      slug: "government-agency-website-development",
+      description: "Structured websites with accessibility and governance-focused workflows for agencies.",
+      features: ["Clear information architecture", "Document modules", "Security hardening baseline", "Training handover"],
+      timeline: "3-8 weeks",
+      startingPrice: "From RM8,000",
+      category: "Government"
+    },
+    {
+      title: "E-commerce Website",
+      slug: "ecommerce-website",
+      description: "Conversion-oriented online stores with secure checkout and product management.",
+      features: ["Product catalog", "Order management", "Payment gateway option", "Performance optimization"],
+      timeline: "2-6 weeks",
+      startingPrice: "From RM4,000",
+      category: "E-commerce"
+    },
+    {
+      title: "Landing Page Development",
+      slug: "landing-page-development",
+      description: "Focused campaign pages built for paid ads, launches, and lead generation.",
+      features: ["Single-page design", "Fast loading", "CTA optimization", "Form integration"],
+      timeline: "3-5 working days",
+      startingPrice: "From RM900",
+      category: "Marketing"
+    },
+    {
+      title: "Company Profile Website",
+      slug: "company-profile-website",
+      description: "Professional profile websites for SMEs and organizations establishing online presence.",
+      features: ["About and service pages", "Contact and map section", "Brand-focused layout", "Mobile optimization"],
+      timeline: "5-10 working days",
+      startingPrice: "From RM1,200",
+      category: "Business"
+    },
+    {
+      title: "Web Application Development",
+      slug: "web-application-development",
+      description: "Custom web applications for internal operations, client portals, and digital workflows.",
+      features: ["Custom modules", "Role-based access", "API-ready architecture", "Secure authentication"],
+      timeline: "4-12 weeks",
+      startingPrice: "From RM10,000",
+      category: "System"
+    },
+    {
+      title: "System Dashboard Development",
+      slug: "system-dashboard-development",
+      description: "Data dashboards and reporting interfaces to improve visibility and decision making.",
+      features: ["KPI widgets", "Filters and charts", "Export-ready reports", "User activity logs"],
+      timeline: "3-8 weeks",
+      startingPrice: "From RM6,500",
+      category: "Dashboard"
+    },
+    {
+      title: "Website Redesign",
+      slug: "website-redesign",
+      description: "Modern redesign for outdated websites with improved structure, speed, and UX.",
+      features: ["UI/UX refresh", "Content restructuring", "SEO-friendly rebuild", "Performance tuning"],
+      timeline: "2-6 weeks",
+      startingPrice: "From RM2,500",
+      category: "Optimization"
+    },
+    {
+      title: "Website Maintenance",
+      slug: "website-maintenance",
+      description: "Ongoing support for updates, monitoring, backups, and issue resolution.",
+      features: ["Monthly updates", "Security checks", "Backup monitoring", "Priority support"],
+      timeline: "Monthly plan",
+      startingPrice: "From RM300/month",
+      category: "Support"
+    },
+    {
+      title: "SEO Basic Setup",
+      slug: "seo-basic-setup",
+      description: "Foundational on-page SEO setup for better visibility in search engines.",
+      features: ["Meta tags", "Sitemap", "Robots.txt", "Structured heading setup"],
+      timeline: "2-5 working days",
+      startingPrice: "From RM600",
+      category: "SEO"
+    },
+    {
+      title: "Hosting/Domain Setup",
+      slug: "hosting-domain-setup",
+      description: "Reliable setup and configuration for hosting, SSL, and domain records.",
+      features: ["DNS configuration", "SSL setup", "Deployment support", "Email DNS records"],
+      timeline: "1-3 working days",
+      startingPrice: "From RM350",
+      category: "Infrastructure"
+    },
+    {
+      title: "Security Hardening",
+      slug: "security-hardening",
+      description: "Practical hardening for web projects to reduce common vulnerabilities.",
+      features: ["Security headers", "Input validation review", "Access policy checks", "Audit recommendations"],
+      timeline: "3-7 working days",
+      startingPrice: "From RM1,000",
+      category: "Security"
+    }
+  ];
+
+  for (const service of services) {
+    await prisma.service.upsert({
+      where: { slug: service.slug },
+      create: service,
+      update: service
+    });
+  }
+
+  const packages = [
+    {
+      name: "Starter Package",
+      slug: "starter-package",
+      description: "Ideal for small businesses and freelancers launching a professional presence.",
+      features: ["1-5 pages", "Responsive design", "Contact form", "Basic SEO setup", "WhatsApp button", "Basic speed optimization"],
+      price: "RM1,500",
+      priceLabel: "Starting from RM1,500",
+      deliveryTimeline: "5-7 working days",
+      bestFor: "Small businesses, freelancers, personal brands",
+      isPopular: false
+    },
+    {
+      name: "Business Package",
+      slug: "business-package",
+      description: "Balanced package for SMEs and organizations needing richer functionality.",
+      features: ["5-10 pages", "Admin panel optional", "Portfolio/blog/news section", "WhatsApp integration", "Basic analytics", "SEO-friendly structure"],
+      price: "RM3,800",
+      priceLabel: "Starting from RM3,800",
+      deliveryTimeline: "10-14 working days",
+      bestFor: "SMEs, companies, agencies, organizations",
+      isPopular: true
+    },
+    {
+      name: "Professional Package",
+      slug: "professional-package",
+      description: "For businesses requiring integrations and custom workflows.",
+      features: ["Custom design", "Database integration", "Admin dashboard", "User management", "API integration", "Security setup", "Role-based features"],
+      price: "RM9,500",
+      priceLabel: "Starting from RM9,500",
+      deliveryTimeline: "3-6 weeks",
+      bestFor: "Companies needing custom features",
+      isPopular: false
+    },
+    {
+      name: "Custom Enterprise Package",
+      slug: "custom-enterprise-package",
+      description: "Tailored enterprise systems for complex workflows and governance requirements.",
+      features: ["Fully customized system", "Multi-role access", "Advanced dashboard", "Reporting module", "Payment gateway option", "Maintenance contract"],
+      price: "",
+      priceLabel: "Custom quotation",
+      deliveryTimeline: "Timeline based on scope",
+      bestFor: "Government, corporate, high-complexity operations",
+      isPopular: false
+    }
+  ];
+
+  for (const pkg of packages) {
+    await prisma.package.upsert({
+      where: { slug: pkg.slug },
+      create: pkg,
+      update: pkg
+    });
+  }
+
+  const portfolioItems = [
+    {
+      title: "Corporate Profile Website",
+      slug: "corporate-profile-website",
+      category: "Business Website",
+      description: "A polished corporate website with services, leadership profile, and inquiry funnels.",
+      imageUrl: "/images/portfolio-placeholder.svg",
+      technologies: ["Next.js", "Tailwind CSS", "Prisma"],
+      isFeatured: true
+    },
+    {
+      title: "Government Asset Management Portal",
+      slug: "government-asset-management-portal",
+      category: "Government",
+      description: "Internal portal for asset tracking, approvals, and reporting for agency teams.",
+      imageUrl: "/images/portfolio-placeholder.svg",
+      technologies: ["Next.js", "MySQL", "Prisma", "Role-based access"],
+      isFeatured: true
+    },
+    {
+      title: "SME E-commerce Store",
+      slug: "sme-ecommerce-store",
+      category: "E-commerce",
+      description: "Multi-category online store with promotional campaigns and product search.",
+      imageUrl: "/images/portfolio-placeholder.svg",
+      technologies: ["Next.js", "Stripe-ready", "MySQL"],
+      isFeatured: true
+    },
+    {
+      title: "Clinic Appointment Website",
+      slug: "clinic-appointment-website",
+      category: "Web Application",
+      description: "Appointment booking workflow and consultation reminders for a healthcare provider.",
+      imageUrl: "/images/portfolio-placeholder.svg",
+      technologies: ["Next.js", "React Hook Form", "Nodemailer"],
+      isFeatured: false
+    },
+    {
+      title: "Company Dashboard System",
+      slug: "company-dashboard-system",
+      category: "Dashboard",
+      description: "KPI dashboard with weekly progress tracking and downloadable reporting.",
+      imageUrl: "/images/portfolio-placeholder.svg",
+      technologies: ["Next.js", "Prisma", "Chart-ready modules"],
+      isFeatured: false
+    },
+    {
+      title: "Landing Page for Marketing Campaign",
+      slug: "landing-page-marketing-campaign",
+      category: "Landing Page",
+      description: "High-conversion landing page for event registration and paid campaigns.",
+      imageUrl: "/images/portfolio-placeholder.svg",
+      technologies: ["Next.js", "Tailwind CSS"],
+      isFeatured: false
+    },
+    {
+      title: "NGO Information Portal",
+      slug: "ngo-information-portal",
+      category: "Business Website",
+      description: "Information hub for programs, donation campaigns, and organization updates.",
+      imageUrl: "/images/portfolio-placeholder.svg",
+      technologies: ["Next.js", "MySQL", "CMS-ready structure"],
+      isFeatured: false
+    }
+  ];
+
+  for (const item of portfolioItems) {
+    await prisma.portfolio.upsert({
+      where: { slug: item.slug },
+      create: item,
+      update: item
+    });
+  }
+  for (const item of TEMPLATE_THEME_CATALOG) {
+    await prisma.templateTheme.upsert({
+      where: { slug: item.slug },
+      create: item,
+      update: item
+    });
+  }
+
+  const testimonials = [
+    {
+      clientName: "Nur Aisyah",
+      companyName: "Aisyah Logistics",
+      role: "Managing Director",
+      message: "The team translated our requirements into a clean website and delivered on schedule.",
+      rating: 5
+    },
+    {
+      clientName: "Farid Hakim",
+      companyName: "FH Digital Ventures",
+      role: "Founder",
+      message: "Clear communication, transparent quotation, and professional execution from start to launch.",
+      rating: 5
+    },
+    {
+      clientName: "Siti Marina",
+      companyName: "Marina Clinic Group",
+      role: "Operations Lead",
+      message: "Our appointment workflow is now smoother, and patients can contact us much faster.",
+      rating: 5
+    },
+    {
+      clientName: "Daniel Tan",
+      companyName: "SME Growth Hub",
+      role: "Marketing Manager",
+      message: "Performance and mobile responsiveness improved significantly after redesign.",
+      rating: 4
+    },
+    {
+      clientName: "Hannah Lee",
+      companyName: "BrightPath NGO",
+      role: "Program Coordinator",
+      message: "The website structure is easy for our team to maintain and update.",
+      rating: 5
+    }
+  ];
+
+  await prisma.testimonial.deleteMany();
+  await prisma.testimonial.createMany({ data: testimonials });
+
+  const faqs = [
+    ["How long does it take to build a website?", "Typical timelines range from 5 working days for simple websites to 6 weeks for custom systems, depending on scope."],
+    ["Do you provide hosting and domain?", "Yes. We can assist with hosting and domain setup and provide guidance on ownership and renewal."],
+    ["Can I request custom features?", "Yes. We build custom modules such as dashboards, booking workflows, and integrations based on requirements."],
+    ["Do you provide maintenance?", "Yes. Monthly maintenance options are available for updates, monitoring, and support."],
+    ["Can you redesign my old website?", "Yes. We can modernize your UI, improve speed, and restructure content for better conversion."],
+    ["Do I need to provide content?", "Providing content is recommended, but we can assist with copy structure and guidance."],
+    ["Do you support government-style systems?", "Yes. We support role-based systems and structured workflows suitable for agencies and organizations."],
+    ["Is payment one-time or monthly?", "Project development is usually milestone-based. Maintenance and hosting can be monthly or annual."],
+    ["Can you build an admin dashboard?", "Yes. We can build admin dashboards with reporting, user roles, and workflow management."],
+    ["Do you provide SEO?", "Yes. We include basic SEO setup and can recommend advanced SEO plans when required."],
+    ["Can you integrate WhatsApp?", "Yes. WhatsApp call-to-action and lead capture flows can be integrated across pages."],
+    ["Can you build e-commerce websites?", "Yes. We build scalable e-commerce stores with catalog, checkout, and order management."],
+    ["Can you build custom systems?", "Yes. We build web applications tailored to your workflow and operational goals."],
+    ["What information do I need to provide before getting a quotation?", "Share your goals, required features, preferred timeline, budget range, and any reference sites."]
+  ];
+
+  await prisma.fAQ.deleteMany();
+  await prisma.fAQ.createMany({
+    data: faqs.map(([question, answer], index) => ({
+      question,
+      answer,
+      category: "General",
+      sortOrder: index + 1
+    }))
+  });
+
+  const settings = {
+    companyName: process.env.PUBLIC_COMPANY_NAME || "WebCrafters Studio",
+    email: process.env.PUBLIC_CONTACT_EMAIL || "hello@webcraftersstudio.com",
+    phone: process.env.PUBLIC_CONTACT_PHONE || "+60 12-345 6789",
+    whatsappNumber: process.env.PUBLIC_WHATSAPP_NUMBER || "60123456789",
+    address: "Kuala Lumpur, Malaysia (by appointment)",
+    businessHours: "Mon-Fri, 9:00 AM - 6:00 PM",
+    facebookUrl: "https://facebook.com",
+    instagramUrl: "https://instagram.com",
+    linkedinUrl: "https://linkedin.com"
+  };
+
+  const currentSetting = await prisma.siteSetting.findFirst();
+  if (!currentSetting) {
+    await prisma.siteSetting.create({ data: settings });
+  } else {
+    await prisma.siteSetting.update({ where: { id: currentSetting.id }, data: settings });
+  }
+
+  console.log("Seed completed.");
+}
+
+main()
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
+
+

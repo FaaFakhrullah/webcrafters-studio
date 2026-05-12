@@ -107,6 +107,20 @@ export const portfolioSchema = z.object({
   isActive: z.boolean().default(true)
 });
 
+export const templateThemeSchema = z.object({
+  name: safeText(2, 191),
+  slug: z.string().min(2).max(191).regex(/^[a-z0-9-]+$/),
+  code: safeText(2, 50),
+  category: safeText(2, 191),
+  description: safeText(10, 3000),
+  templateUrl: z.string().url().max(255),
+  sourceUrl: z.string().url().max(255),
+  previewImageUrl: z.string().max(255),
+  previewClass: safeText(5, 191),
+  sortOrder: z.number().int().min(0).default(0),
+  isActive: z.boolean().default(true)
+});
+
 export const testimonialSchema = z.object({
   clientName: safeText(2, 191),
   companyName: safeText(2, 191),

@@ -8,6 +8,7 @@ const items = [
   ["/admin/services", "Services"],
   ["/admin/packages", "Packages"],
   ["/admin/portfolio", "Portfolio"],
+  ["/admin/template-themes", "Template Themes"],
   ["/admin/testimonials", "Testimonials"],
   ["/admin/faqs", "FAQs"],
   ["/admin/settings", "Settings"]
