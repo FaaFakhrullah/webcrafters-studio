@@ -1,0 +1,226 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  STAFF
+}
+
+enum InquiryStatus {
+  NEW
+  CONTACTED
+  QUOTED
+  IN_PROGRESS
+  COMPLETED
+  REJECTED
+}
+
+enum ContactStatus {
+  UNREAD
+  READ
+}
+
+enum ConsultationStatus {
+  NEW
+  SCHEDULED
+  COMPLETED
+  CANCELLED
+}
+
+enum ProjectType {
+  BUSINESS_WEBSITE
+  ECOMMERCE
+  LANDING_PAGE
+  WEB_APPLICATION
+  DASHBOARD_SYSTEM
+  GOVERNMENT_SYSTEM
+  WEBSITE_REDESIGN
+  MAINTENANCE
+  OTHER
+}
+
+enum PreferredContactMethod {
+  EMAIL
+  PHONE_CALL
+  WHATSAPP
+}
+
+enum ConsultationMethod {
+  WHATSAPP
+  PHONE_CALL
+  ONLINE_MEETING
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  name         String   @db.VarChar(191)
+  email        String   @unique @db.VarChar(191)
+  passwordHash String   @db.VarChar(255)
+  role         UserRole @default(ADMIN)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Service {
+  id            Int      @id @default(autoincrement())
+  title         String   @db.VarChar(191)
+  slug          String   @unique @db.VarChar(191)
+  description   String   @db.Text
+  features      Json
+  timeline      String   @db.VarChar(191)
+  startingPrice String   @db.VarChar(191)
+  category      String   @db.VarChar(191)
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Package {
+  id              Int      @id @default(autoincrement())
+  name            String   @db.VarChar(191)
+  slug            String   @unique @db.VarChar(191)
+  description     String   @db.Text
+  features        Json
+  price           String?  @db.VarChar(191)
+  priceLabel      String   @db.VarChar(191)
+  deliveryTimeline String  @db.VarChar(191)
+  bestFor         String   @db.VarChar(255)
+  isPopular       Boolean  @default(false)
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Portfolio {
+  id           Int      @id @default(autoincrement())
+  title        String   @db.VarChar(191)
+  slug         String   @unique @db.VarChar(191)
+  category     String   @db.VarChar(191)
+  description  String   @db.Text
+  imageUrl     String   @db.VarChar(255)
+  technologies Json
+  projectUrl   String?  @db.VarChar(255)
+  isFeatured   Boolean  @default(false)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Testimonial {
+  id          Int      @id @default(autoincrement())
+  clientName  String   @db.VarChar(191)
+  companyName String   @db.VarChar(191)
+  role        String   @db.VarChar(191)
+  message     String   @db.Text
+  rating      Int      @default(5)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model QuotationRequest {
+  id                     Int                    @id @default(autoincrement())
+  fullName               String                 @db.VarChar(191)
+  companyName            String?                @db.VarChar(191)
+  email                  String                 @db.VarChar(191)
+  phone                  String                 @db.VarChar(50)
+  preferredContactMethod PreferredContactMethod
+  projectType            ProjectType
+  budgetRange            String                 @db.VarChar(191)
+  timeline               String                 @db.VarChar(191)
+  requiredFeatures       Json
+  existingWebsiteUrl     String?                @db.VarChar(255)
+  projectDescription     String                 @db.Text
+  fileUrl                String?                @db.VarChar(255)
+  status                 InquiryStatus          @default(NEW)
+  internalNotes          String?                @db.Text
+  ipAddress              String?                @db.VarChar(64)
+  userAgent              String?                @db.VarChar(255)
+  createdAt              DateTime               @default(now())
+  updatedAt              DateTime               @updatedAt
+
+  @@index([email])
+  @@index([status])
+}
+
+model ConsultationBooking {
+  id                 Int                @id @default(autoincrement())
+  fullName           String             @db.VarChar(191)
+  companyName        String?            @db.VarChar(191)
+  email              String             @db.VarChar(191)
+  phone              String             @db.VarChar(50)
+  preferredMethod    ConsultationMethod
+  preferredDate      DateTime
+  preferredTime      String             @db.VarChar(50)
+  projectType        ProjectType
+  projectDescription String             @db.Text
+  status             ConsultationStatus @default(NEW)
+  internalNotes      String?            @db.Text
+  ipAddress          String?            @db.VarChar(64)
+  userAgent          String?            @db.VarChar(255)
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+
+  @@index([email])
+  @@index([status])
+}
+
+model ContactMessage {
+  id        Int           @id @default(autoincrement())
+  name      String        @db.VarChar(191)
+  email     String        @db.VarChar(191)
+  phone     String?       @db.VarChar(50)
+  subject   String        @db.VarChar(191)
+  message   String        @db.Text
+  status    ContactStatus @default(UNREAD)
+  ipAddress String?       @db.VarChar(64)
+  userAgent String?       @db.VarChar(255)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@index([email])
+  @@index([status])
+}
+
+model FAQ {
+  id        Int      @id @default(autoincrement())
+  question  String   @db.VarChar(255)
+  answer    String   @db.Text
+  category  String   @db.VarChar(191)
+  sortOrder Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SiteSetting {
+  id             Int      @id @default(autoincrement())
+  companyName    String   @db.VarChar(191)
+  email          String   @db.VarChar(191)
+  phone          String   @db.VarChar(50)
+  whatsappNumber String   @db.VarChar(30)
+  address        String   @db.Text
+  businessHours  String   @db.VarChar(255)
+  facebookUrl    String?  @db.VarChar(255)
+  instagramUrl   String?  @db.VarChar(255)
+  linkedinUrl    String?  @db.VarChar(255)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model RateLimit {
+  id        Int      @id @default(autoincrement())
+  key       String   @unique @db.VarChar(191)
+  count     Int      @default(0)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([expiresAt])
+}

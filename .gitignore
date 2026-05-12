@@ -1,0 +1,9 @@
+node_modules
+.next
+dist
+coverage
+*.log
+.env
+.docker-config
+uploads/*
+!uploads/.gitkeep
