@@ -101,6 +101,20 @@ docker compose exec app npm run prisma:migrate
 docker compose exec app npm run prisma:seed
 ```
 
+## Docker Deployment (Production)
+1. Copy production env:
+```bash
+cp .env.production.example .env.production
+```
+2. Build and run production stack:
+```bash
+docker compose -f docker-compose.prod.yml up --build -d
+```
+3. Run migrations:
+```bash
+docker compose -f docker-compose.prod.yml exec app npm run prisma:deploy
+```
+
 ## Production Build
 ```bash
 npm run build
@@ -123,6 +137,10 @@ docker compose exec app npm run prisma:deploy
 ```bash
 docker compose exec app npm run prisma:seed
 ```
+
+For Hostinger VPS end-to-end setup:
+- `docs/hostinger-vps-deployment.md`
+- `docs/hostinger-quick-deploy.md` (fast copy-paste flow)
 
 ### NGINX Reverse Proxy Example
 ```nginx
