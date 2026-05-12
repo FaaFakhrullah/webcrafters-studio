@@ -142,6 +142,9 @@ For Hostinger VPS end-to-end setup:
 - `docs/hostinger-vps-deployment.md`
 - `docs/hostinger-quick-deploy.md` (fast copy-paste flow)
 
+For Hostinger Business/Cloud (non-VPS) Node.js setup:
+- `docs/hostinger-business-nodejs-deploy.md`
+
 ### NGINX Reverse Proxy Example
 ```nginx
 server {

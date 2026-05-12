@@ -31,7 +31,10 @@ export default async function MessagesPage({ searchParams }: { searchParams: Pro
 
   return (
     <div className="space-y-5">
-      <h2 className="font-display text-2xl font-bold">Contact Messages</h2>
+      <div>
+        <h2 className="font-display text-2xl font-bold">Contact Messages</h2>
+        <p className="mt-1 text-sm text-slate-500">Use the action button to mark each message as READ or UNREAD.</p>
+      </div>
       <form className="grid gap-3 md:grid-cols-3" method="GET">
         <SearchInput name="q" placeholder="Search by name, email, subject" defaultValue={q} />
         <FilterDropdown name="status" defaultValue={status} options={["ALL", "UNREAD", "READ"]} />

@@ -42,7 +42,10 @@ export default async function QuotationsPage({ searchParams }: { searchParams: P
 
   return (
     <div className="space-y-5">
-      <h2 className="font-display text-2xl font-bold">Quotation Requests</h2>
+      <div>
+        <h2 className="font-display text-2xl font-bold">Quotation Requests</h2>
+        <p className="mt-1 text-sm text-slate-500">Use the Manage button to update status and add internal notes.</p>
+      </div>
       <form className="grid gap-3 md:grid-cols-3" method="GET">
         <SearchInput name="q" placeholder="Search by name, email, company, project type" defaultValue={q} />
         <FilterDropdown
@@ -62,6 +65,7 @@ export default async function QuotationsPage({ searchParams }: { searchParams: P
               <TableHead>Project</TableHead>
               <TableHead>Status</TableHead>
               <TableHead>Created</TableHead>
+              <TableHead className="text-right">Action</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -78,6 +82,11 @@ export default async function QuotationsPage({ searchParams }: { searchParams: P
                   <StatusBadge status={item.status} />
                 </TableCell>
                 <TableCell>{new Date(item.createdAt).toLocaleDateString()}</TableCell>
+                <TableCell className="text-right">
+                  <Link href={`/admin/quotations/${item.id}`}>
+                    <Button size="sm" variant="outline">Manage</Button>
+                  </Link>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
