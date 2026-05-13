@@ -16,7 +16,11 @@ export const WHATSAPP_TEXT = encodeURIComponent(
   "Hi WebCrafters Studio, I would like to request a quotation for a website project."
 );
 
-export const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_TEXT}`;
+export function createWhatsAppLink(number: string) {
+  return `https://wa.me/${number}?text=${WHATSAPP_TEXT}`;
+}
+
+export const WHATSAPP_LINK = createWhatsAppLink(WHATSAPP_NUMBER);
 
 export const NAV_LINKS = [
   { href: "/", label: "Home" },

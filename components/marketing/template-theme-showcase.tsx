@@ -87,20 +87,12 @@ export function TemplateThemeShowcase({ items, mode = "full" }: TemplateThemeSho
                 <p className="text-sm text-slate-600">{item.description}</p>
               </CardContent>
               <CardFooter>
-                <div className="w-full space-y-2">
+                <div className="w-full">
                   <Link href={`/template-live/${item.slug}`} className="block w-full">
                     <Button variant="outline" className="w-full">
                       View Template
                     </Button>
                   </Link>
-                  <a
-                    href={item.sourceUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="block text-center text-xs font-medium text-slate-500 hover:text-slate-700"
-                  >
-                    Source details
-                  </a>
                 </div>
               </CardFooter>
             </Card>

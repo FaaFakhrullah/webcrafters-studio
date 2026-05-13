@@ -5,9 +5,14 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { COMPANY_NAME, NAV_LINKS, WHATSAPP_LINK } from "@/lib/constants";
+import { NAV_LINKS } from "@/lib/constants";
 
-export function MobileNav() {
+type MobileNavProps = {
+  companyName: string;
+  whatsappLink: string;
+};
+
+export function MobileNav({ companyName, whatsappLink }: MobileNavProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -26,10 +31,10 @@ export function MobileNav() {
               </li>
             ))}
           </ul>
-          <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="mt-3 block">
+          <a href={whatsappLink} target="_blank" rel="noreferrer" className="mt-3 block">
             <Button className="w-full bg-secondary">WhatsApp Us</Button>
           </a>
-          <p className="mt-2 text-center text-xs text-slate-500">{COMPANY_NAME}</p>
+          <p className="mt-2 text-center text-xs text-slate-500">{companyName}</p>
         </div>
       )}
     </div>

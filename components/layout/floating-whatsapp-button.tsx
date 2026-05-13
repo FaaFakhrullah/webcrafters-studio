@@ -1,11 +1,13 @@
 import { MessageCircle } from "lucide-react";
 
-import { WHATSAPP_LINK } from "@/lib/constants";
+type FloatingWhatsAppButtonProps = {
+  whatsappLink: string;
+};
 
-export function FloatingWhatsAppButton() {
+export function FloatingWhatsAppButton({ whatsappLink }: FloatingWhatsAppButtonProps) {
   return (
     <a
-      href={WHATSAPP_LINK}
+      href={whatsappLink}
       target="_blank"
       rel="noreferrer"
       aria-label="Chat on WhatsApp"

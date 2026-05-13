@@ -23,6 +23,7 @@ type Settings = {
 export function SettingsForm({ settings }: { settings: Settings }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState<{ type: "success" | "error"; message: string } | null>(null);
   const [form, setForm] = useState<Settings>({
     ...settings,
     facebookUrl: settings.facebookUrl || "",
@@ -33,13 +34,28 @@ export function SettingsForm({ settings }: { settings: Settings }) {
   async function save(event: React.FormEvent) {
     event.preventDefault();
     setLoading(true);
-    await fetch("/api/admin/settings", {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form)
-    });
-    setLoading(false);
-    router.refresh();
+    setStatus(null);
+
+    try {
+      const response = await fetch("/api/admin/settings", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form)
+      });
+      const result = (await response.json()) as { message?: string };
+
+      if (!response.ok) {
+        setStatus({ type: "error", message: result.message || "Failed to save settings." });
+        return;
+      }
+
+      setStatus({ type: "success", message: "Settings saved successfully." });
+      router.refresh();
+    } catch {
+      setStatus({ type: "error", message: "Failed to save settings. Please try again." });
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -88,6 +104,9 @@ export function SettingsForm({ settings }: { settings: Settings }) {
       <Button type="submit" disabled={loading}>
         {loading ? "Saving..." : "Save settings"}
       </Button>
+      {status ? (
+        <p className={status.type === "error" ? "text-sm text-red-600" : "text-sm text-emerald-600"}>{status.message}</p>
+      ) : null}
     </form>
   );
 }

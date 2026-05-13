@@ -7,7 +7,25 @@ import { FloatingWhatsAppButton } from "@/components/layout/floating-whatsapp-bu
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 
-export function SiteChrome({ children }: { children: ReactNode }) {
+type SiteChromeProps = {
+  children: ReactNode;
+  companyName: string;
+  contactEmail: string;
+  contactPhone: string;
+  address: string;
+  businessHours: string;
+  whatsappLink: string;
+};
+
+export function SiteChrome({
+  children,
+  companyName,
+  contactEmail,
+  contactPhone,
+  address,
+  businessHours,
+  whatsappLink
+}: SiteChromeProps) {
   const pathname = usePathname();
   const isAdmin = pathname.startsWith("/admin");
 
@@ -17,10 +35,10 @@ export function SiteChrome({ children }: { children: ReactNode }) {
 
   return (
     <>
-      <Navbar />
+      <Navbar companyName={companyName} whatsappLink={whatsappLink} />
       {children}
-      <Footer />
-      <FloatingWhatsAppButton />
+      <Footer companyName={companyName} email={contactEmail} phone={contactPhone} address={address} businessHours={businessHours} />
+      <FloatingWhatsAppButton whatsappLink={whatsappLink} />
     </>
   );
 }
