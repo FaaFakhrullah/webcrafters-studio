@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 
 import { SectionHeader } from "@/components/layout/section-header";
+import { Reveal, StaggeredReveal } from "@/components/motion/reveal";
 import { PackageCard } from "@/components/marketing/package-card";
 import { getActivePackages } from "@/lib/data";
 import { toArray } from "@/lib/utils";
@@ -17,12 +18,14 @@ export default async function PackagesPage() {
   return (
     <main className="page-section">
       <div className="container-shell">
-        <SectionHeader
-          eyebrow="Pricing"
-          title="Packages and pricing"
-          description="Clear package options with practical timelines for different business needs."
-        />
-        <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+        <Reveal>
+          <SectionHeader
+            eyebrow="Pricing"
+            title="Packages and pricing"
+            description="Clear package options with practical timelines for different business needs."
+          />
+        </Reveal>
+        <StaggeredReveal className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           {packagesData.map((pkg) => (
             <PackageCard
               key={pkg.id}
@@ -35,10 +38,12 @@ export default async function PackagesPage() {
               isPopular={pkg.isPopular}
             />
           ))}
-        </div>
-        <p className="mt-8 rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-700">
-          Final pricing depends on project scope, features, content, integrations, and timeline.
-        </p>
+        </StaggeredReveal>
+        <Reveal>
+          <p className="mt-8 rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-700">
+            Final pricing depends on project scope, features, content, integrations, and timeline.
+          </p>
+        </Reveal>
       </div>
     </main>
   );

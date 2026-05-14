@@ -24,7 +24,7 @@ export function Button({ className, variant = "default", size = "default", ...pr
   return (
     <button
       className={cn(
-        "inline-flex items-center justify-center rounded-md text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+        "inline-flex items-center justify-center rounded-md text-sm font-semibold transition-all duration-200 ease-out hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:hover:translate-y-0",
         buttonVariants[variant],
         buttonSizes[size],
         className

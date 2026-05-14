@@ -24,7 +24,7 @@ export function PackageCard({
   isPopular = false
 }: PackageCardProps) {
   return (
-    <Card className="h-full">
+    <Card className="motion-card h-full">
       <CardHeader>
         <div className="flex items-center justify-between gap-2">
           <CardTitle>{name}</CardTitle>

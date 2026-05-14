@@ -22,7 +22,7 @@ export function FAQAccordion({ items }: FAQAccordionProps) {
       {items.map((item) => {
         const open = openId === item.id;
         return (
-          <div key={item.id} className="rounded-xl border border-border bg-white shadow-soft">
+          <div key={item.id} className="motion-card rounded-xl border border-border bg-white shadow-soft">
             <button
               className={cn("w-full px-4 py-4 text-left text-sm font-semibold md:text-base", open ? "text-primary" : "text-slate-800")}
               onClick={() => setOpenId(open ? null : item.id)}
@@ -30,7 +30,7 @@ export function FAQAccordion({ items }: FAQAccordionProps) {
             >
               {item.question}
             </button>
-            {open && <p className="px-4 pb-4 text-sm text-slate-600">{item.answer}</p>}
+            {open && <p className="motion-reveal motion-reveal-fade is-visible px-4 pb-4 text-sm text-slate-600">{item.answer}</p>}
           </div>
         );
       })}

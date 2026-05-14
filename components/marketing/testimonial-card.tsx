@@ -10,7 +10,7 @@ type TestimonialCardProps = {
 
 export function TestimonialCard({ clientName, companyName, role, message, rating }: TestimonialCardProps) {
   return (
-    <Card className="h-full">
+    <Card className="motion-card h-full">
       <CardContent className="pt-6">
         <p className="text-yellow-500">{"*".repeat(rating)}</p>
         <p className="mt-3 text-sm text-slate-700">\"{message}\"</p>

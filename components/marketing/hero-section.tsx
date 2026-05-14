@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { Reveal } from "@/components/motion/reveal";
 import { Button } from "@/components/ui/button";
 import { WHATSAPP_LINK } from "@/lib/constants";
 
@@ -7,7 +8,7 @@ export function HeroSection() {
   return (
     <section className="relative overflow-hidden bg-hero-gradient">
       <div className="container-shell page-section grid items-center gap-12 md:grid-cols-2">
-        <div>
+        <Reveal>
           <p className="mb-4 inline-flex rounded-full bg-cyan-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-cyan-700">
             Website Solutions Designed for Malaysian Businesses
           </p>
@@ -16,23 +17,25 @@ export function HeroSection() {
             From company profiles to custom dashboards, we help organizations move online with confidence through secure,
             responsive, and scalable web solutions.
           </p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <Link href="/request-quotation">
-              <Button size="lg">Request a Website</Button>
+          <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <Link href="/request-quotation" className="w-full sm:w-auto">
+              <Button size="lg" className="w-full sm:w-auto">
+                Request a Website
+              </Button>
             </Link>
-            <Link href="/packages">
-              <Button variant="outline" size="lg">
+            <Link href="/packages" className="w-full sm:w-auto">
+              <Button variant="outline" size="lg" className="w-full sm:w-auto">
                 View Packages
               </Button>
             </Link>
-            <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer">
-              <Button size="lg" className="bg-secondary">
+            <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="w-full sm:w-auto">
+              <Button size="lg" className="w-full bg-secondary sm:w-auto">
                 WhatsApp Us
               </Button>
             </a>
           </div>
-        </div>
-        <div className="rounded-2xl border border-border bg-white p-6 shadow-soft">
+        </Reveal>
+        <Reveal delay={120} variant="scale" className="motion-card rounded-2xl border border-border bg-white p-6 shadow-soft">
           <h2 className="font-display text-2xl font-bold">Clear process, transparent quotation, and reliable delivery</h2>
           <p className="mt-3 text-slate-600">
             We build digital systems for SMEs, startups, NGOs, and government-aligned organizations with practical timelines
@@ -43,7 +46,7 @@ export function HeroSection() {
             <li>Mobile-first responsive implementation</li>
             <li>Business-focused outcomes and maintainability</li>
           </ul>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

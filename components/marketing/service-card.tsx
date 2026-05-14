@@ -15,7 +15,7 @@ type ServiceCardProps = {
 
 export function ServiceCard({ title, description, features, timeline, startingPrice, category, suitableFor }: ServiceCardProps) {
   return (
-    <Card className="h-full">
+    <Card className="motion-card h-full">
       <CardHeader>
         <p className="text-xs font-semibold uppercase tracking-wide text-secondary">{category}</p>
         <CardTitle>{title}</CardTitle>

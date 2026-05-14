@@ -15,9 +15,9 @@ type PortfolioCardProps = {
 
 export function PortfolioCard({ title, category, description, technologies, imageUrl }: PortfolioCardProps) {
   return (
-    <Card className="h-full overflow-hidden">
+    <Card className="motion-card h-full overflow-hidden">
       <div className="relative h-48 w-full bg-slate-100">
-        <Image src={imageUrl} alt={title} fill className="object-cover" />
+        <Image src={imageUrl} alt={title} fill className="object-cover transition duration-500 hover:scale-[1.03]" />
       </div>
       <CardHeader>
         <div className="mb-2">

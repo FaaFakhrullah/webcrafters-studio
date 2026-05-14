@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
+import { Reveal, StaggeredReveal } from "@/components/motion/reveal";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -40,12 +41,12 @@ export function TemplateThemeShowcase({ items, mode = "full" }: TemplateThemeSho
   return (
     <section className="page-section bg-slate-100">
       <div className="container-shell">
-        <div className="mx-auto max-w-3xl text-center">
+        <Reveal className="mx-auto max-w-3xl text-center">
           <h2 className="font-display text-4xl font-bold text-slate-900 md:text-5xl">Website Theme Options</h2>
           <p className="mt-3 text-lg text-slate-600">
             Explore curated website design references based on your business category and project goals.
           </p>
-        </div>
+        </Reveal>
 
         {!isPreviewMode ? (
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
@@ -67,9 +68,9 @@ export function TemplateThemeShowcase({ items, mode = "full" }: TemplateThemeSho
           </div>
         ) : null}
 
-        <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <StaggeredReveal className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4" stagger={70}>
           {filteredItems.map((item) => (
-            <Card key={item.id} className="overflow-hidden border-0 bg-white shadow-soft">
+            <Card key={item.id} className="motion-card overflow-hidden border-0 bg-white shadow-soft">
               <div className={cn("relative h-52 overflow-hidden bg-gradient-to-br", item.previewClass)}>
                 <Image
                   src={item.previewImageUrl}
@@ -97,7 +98,7 @@ export function TemplateThemeShowcase({ items, mode = "full" }: TemplateThemeSho
               </CardFooter>
             </Card>
           ))}
-        </div>
+        </StaggeredReveal>
 
         <div className="mt-10 flex justify-center">
           <Link href="/website-themes" className="w-full max-w-5xl">

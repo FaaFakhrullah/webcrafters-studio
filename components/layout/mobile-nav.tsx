@@ -21,11 +21,15 @@ export function MobileNav({ companyName, whatsappLink }: MobileNavProps) {
         {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
       </Button>
       {open && (
-        <div className="absolute left-4 right-4 top-16 z-50 rounded-xl border border-border bg-white p-4 shadow-soft">
+        <div className="motion-reveal motion-reveal-scale is-visible absolute left-4 right-4 top-16 z-50 rounded-xl border border-border bg-white p-4 shadow-soft">
           <ul className="space-y-2">
             {NAV_LINKS.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} onClick={() => setOpen(false)} className="block rounded-md px-3 py-2 text-sm font-medium hover:bg-slate-100">
+                <Link
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  className="block rounded-md px-3 py-2 text-sm font-medium transition hover:bg-slate-100 hover:text-primary"
+                >
                   {item.label}
                 </Link>
               </li>

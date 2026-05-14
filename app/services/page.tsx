@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 
 import { SectionHeader } from "@/components/layout/section-header";
+import { Reveal, StaggeredReveal } from "@/components/motion/reveal";
 import { ServiceCard } from "@/components/marketing/service-card";
 import { getActiveServices } from "@/lib/data";
 import { toArray } from "@/lib/utils";
@@ -17,12 +18,14 @@ export default async function ServicesPage() {
   return (
     <main className="page-section">
       <div className="container-shell">
-        <SectionHeader
-          eyebrow="Services"
-          title="Professional web development services"
-          description="Complete delivery from business websites to custom agency and dashboard systems."
-        />
-        <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        <Reveal>
+          <SectionHeader
+            eyebrow="Services"
+            title="Professional web development services"
+            description="Complete delivery from business websites to custom agency and dashboard systems."
+          />
+        </Reveal>
+        <StaggeredReveal className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {services.map((service) => (
             <ServiceCard
               key={service.id}
@@ -34,7 +37,7 @@ export default async function ServicesPage() {
               category={service.category}
             />
           ))}
-        </div>
+        </StaggeredReveal>
       </div>
     </main>
   );
