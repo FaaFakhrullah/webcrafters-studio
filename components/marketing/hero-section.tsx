@@ -1,51 +1,56 @@
 import Link from "next/link";
+import { CheckCircle2 } from "lucide-react";
 
+import { AgencyMockup } from "@/components/marketing/agency-mockup";
 import { Reveal } from "@/components/motion/reveal";
 import { Button } from "@/components/ui/button";
 import { WHATSAPP_LINK } from "@/lib/constants";
 
+const trustKeywords = ["Secure Development", "Responsive Design", "SEO Ready", "Admin Dashboard", "Maintenance Support"];
+
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-hero-gradient">
-      <div className="container-shell page-section grid items-center gap-12 md:grid-cols-2">
+    <section className="dark-section relative overflow-hidden">
+      <div className="container-shell page-section grid items-center gap-12 lg:grid-cols-[1.02fr_0.98fr]">
         <Reveal>
-          <p className="mb-4 inline-flex rounded-full bg-cyan-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-cyan-700">
-            Website Solutions Designed for Malaysian Businesses
+          <p className="accent-kicker mb-4">
+            Premium Malaysian Web Development Agency
           </p>
-          <h1 className="hero-title">Professional websites built to support your business growth</h1>
-          <p className="hero-subtitle">
-            From company profiles to custom dashboards, we help organizations move online with confidence through secure,
-            responsive, and scalable web solutions.
+          <h1 className="font-display text-4xl font-bold leading-tight text-white sm:text-5xl md:text-6xl">
+            Premium Website & Web System Development for Malaysian Businesses
+          </h1>
+          <p className="mt-5 max-w-2xl text-base leading-8 text-slate-300 md:text-lg">
+            We design and build secure, responsive, and scalable websites, dashboards, and custom web applications for SMEs,
+            agencies, NGOs, and organizations that need reliable digital solutions.
           </p>
           <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Link href="/request-quotation" className="w-full sm:w-auto">
-              <Button size="lg" className="w-full sm:w-auto">
-                Request a Website
+              <Button size="lg" className="w-full bg-cyan-400 text-slate-950 hover:bg-cyan-300 sm:w-auto">
+                Request a Website Quotation
               </Button>
             </Link>
             <Link href="/packages" className="w-full sm:w-auto">
-              <Button variant="outline" size="lg" className="w-full sm:w-auto">
+              <Button variant="outline" size="lg" className="w-full border-white/20 bg-white/10 text-white hover:bg-white/15 sm:w-auto">
                 View Packages
               </Button>
             </Link>
             <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="w-full sm:w-auto">
-              <Button size="lg" className="w-full bg-secondary sm:w-auto">
+              <Button size="lg" className="w-full bg-teal-500 text-white hover:bg-teal-400 sm:w-auto">
                 WhatsApp Us
               </Button>
             </a>
           </div>
+          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {trustKeywords.map((keyword) => (
+              <div key={keyword} className="flex items-center gap-2 text-sm font-semibold text-slate-200">
+                <CheckCircle2 className="h-4 w-4 text-cyan-300" />
+                {keyword}
+              </div>
+            ))}
+          </div>
         </Reveal>
-        <Reveal delay={120} variant="scale" className="motion-card rounded-2xl border border-border bg-white p-6 shadow-soft">
-          <h2 className="font-display text-2xl font-bold">Clear process, transparent quotation, and reliable delivery</h2>
-          <p className="mt-3 text-slate-600">
-            We build digital systems for SMEs, startups, NGOs, and government-aligned organizations with practical timelines
-            and strong engineering discipline.
-          </p>
-          <ul className="mt-5 space-y-3 text-sm text-slate-700">
-            <li>Secure architecture and coding standards</li>
-            <li>Mobile-first responsive implementation</li>
-            <li>Business-focused outcomes and maintainability</li>
-          </ul>
+        <Reveal delay={120} variant="scale">
+          <AgencyMockup />
         </Reveal>
       </div>
     </section>

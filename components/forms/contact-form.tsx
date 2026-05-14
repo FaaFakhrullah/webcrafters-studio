@@ -41,7 +41,7 @@ export function ContactForm() {
       setServerError(data.message || "Failed to send message.");
       return;
     }
-    setSuccess("Message sent successfully. Our team will reply soon.");
+    setSuccess("Thank you. Your message has been received and we will reply as soon as possible.");
     form.reset();
   }
 

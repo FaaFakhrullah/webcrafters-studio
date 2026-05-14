@@ -17,7 +17,7 @@ export function MobileNav({ companyName, whatsappLink }: MobileNavProps) {
 
   return (
     <div className="md:hidden">
-      <Button variant="outline" size="sm" aria-label="Toggle navigation" onClick={() => setOpen((prev) => !prev)}>
+      <Button variant="outline" size="sm" aria-label="Toggle navigation" aria-expanded={open} onClick={() => setOpen((prev) => !prev)}>
         {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
       </Button>
       {open && (

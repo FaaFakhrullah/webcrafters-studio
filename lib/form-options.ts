@@ -16,14 +16,14 @@ export const projectTypes = [
 
 export const budgetRanges = [
   "Below RM1,000",
-  "RM1,000 - RM3,000",
-  "RM3,000 - RM8,000",
+  "RM1,000 - RM2,999",
+  "RM3,000 - RM7,999",
   "RM8,000 - RM15,000",
   "RM15,000+",
   "Not sure yet"
 ] as const;
 
-export const timelines = ["Urgent", "1-2 weeks", "1 month", "2-3 months", "Flexible"] as const;
+export const timelines = ["Urgent", "1-2 weeks", "1 month", "2-3 months", "Flexible / need advice"] as const;
 
 export const quotationFeatureOptions = [
   "Contact form",
@@ -37,7 +37,10 @@ export const quotationFeatureOptions = [
   "API integration",
   "WhatsApp integration",
   "SEO setup",
-  "Maintenance"
+  "Maintenance",
+  "Security hardening",
+  "Hosting/domain guidance",
+  "Bilingual Malay/English pages"
 ] as const;
 
 const safeText = (min: number, max: number) => z.string().min(min).max(max).transform((v) => v.trim());

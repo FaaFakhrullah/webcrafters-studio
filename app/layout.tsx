@@ -8,15 +8,15 @@ import { COMPANY_NAME, CONTACT_EMAIL, CONTACT_PHONE, createWhatsAppLink, SITE_UR
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "WebCrafters Studio | Professional Website Development Services Malaysia",
+    default: "WebCrafters Studio | Premium Website Development Malaysia",
     template: `%s | ${COMPANY_NAME}`
   },
   description:
-    "WebCrafters Studio provides professional website development, web applications, dashboards, e-commerce, and maintenance services for Malaysian businesses, SMEs, organizations, and agencies.",
+    "Premium Malaysian website development agency for secure websites, admin dashboards, e-commerce, maintenance, SEO setup, and custom web applications.",
   openGraph: {
-    title: "WebCrafters Studio | Professional Website Development Services Malaysia",
+    title: "WebCrafters Studio | Premium Website Development Malaysia",
     description:
-      "Secure, responsive, and scalable web solutions for Malaysian businesses, organizations, and agencies.",
+      "Secure, responsive, scalable, and maintainable websites, dashboards, and custom web applications for Malaysian organizations.",
     url: SITE_URL,
     siteName: COMPANY_NAME,
     locale: "en_MY",
@@ -25,6 +25,11 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "WebCrafters Studio | Website Development Malaysia",
+    description: "Premium websites, dashboards, e-commerce, and custom web applications for Malaysian businesses."
   }
 };
 

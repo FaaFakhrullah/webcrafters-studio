@@ -278,46 +278,7 @@ async function main() {
     });
   }
 
-  const testimonials = [
-    {
-      clientName: "Nur Aisyah",
-      companyName: "Aisyah Logistics",
-      role: "Managing Director",
-      message: "The team translated our requirements into a clean website and delivered on schedule.",
-      rating: 5
-    },
-    {
-      clientName: "Farid Hakim",
-      companyName: "FH Digital Ventures",
-      role: "Founder",
-      message: "Clear communication, transparent quotation, and professional execution from start to launch.",
-      rating: 5
-    },
-    {
-      clientName: "Siti Marina",
-      companyName: "Marina Clinic Group",
-      role: "Operations Lead",
-      message: "Our appointment workflow is now smoother, and patients can contact us much faster.",
-      rating: 5
-    },
-    {
-      clientName: "Daniel Tan",
-      companyName: "SME Growth Hub",
-      role: "Marketing Manager",
-      message: "Performance and mobile responsiveness improved significantly after redesign.",
-      rating: 4
-    },
-    {
-      clientName: "Hannah Lee",
-      companyName: "BrightPath NGO",
-      role: "Program Coordinator",
-      message: "The website structure is easy for our team to maintain and update.",
-      rating: 5
-    }
-  ];
-
   await prisma.testimonial.deleteMany();
-  await prisma.testimonial.createMany({ data: testimonials });
 
   const faqs = [
     ["How long does it take to build a website?", "Typical timelines range from 5 working days for simple websites to 6 weeks for custom systems, depending on scope."],
@@ -349,8 +310,8 @@ async function main() {
   const settings = {
     companyName: process.env.PUBLIC_COMPANY_NAME || "WebCrafters Studio",
     email: process.env.PUBLIC_CONTACT_EMAIL || "hello@webcraftersstudio.com",
-    phone: process.env.PUBLIC_CONTACT_PHONE || "+60 12-345 6789",
-    whatsappNumber: process.env.PUBLIC_WHATSAPP_NUMBER || "60123456789",
+    phone: process.env.PUBLIC_CONTACT_PHONE || "+60 18-204 5771",
+    whatsappNumber: process.env.PUBLIC_WHATSAPP_NUMBER || "60182045771",
     address: "Kuala Lumpur, Malaysia (by appointment)",
     businessHours: "Mon-Fri, 9:00 AM - 6:00 PM",
     facebookUrl: "https://facebook.com",

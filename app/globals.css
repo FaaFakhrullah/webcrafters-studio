@@ -7,13 +7,13 @@
 :root {
   --background: 210 40% 98%;
   --foreground: 222 47% 11%;
-  --primary: 217 91% 30%;
+  --primary: 221 83% 22%;
   --primary-foreground: 210 40% 98%;
-  --secondary: 188 86% 39%;
+  --secondary: 188 94% 43%;
   --secondary-foreground: 210 40% 98%;
   --muted: 210 40% 96%;
   --muted-foreground: 215 16% 40%;
-  --accent: 162 84% 40%;
+  --accent: 164 86% 42%;
   --accent-foreground: 210 40% 98%;
   --card: 0 0% 100%;
   --card-foreground: 222 47% 11%;
@@ -46,6 +46,26 @@ html {
 
 .page-section {
   @apply py-14 md:py-20;
+}
+
+.dark-section {
+  @apply bg-slate-950 text-white;
+  background-image:
+    radial-gradient(circle at top left, rgba(34, 211, 238, 0.16), transparent 34rem),
+    radial-gradient(circle at bottom right, rgba(20, 184, 166, 0.12), transparent 32rem),
+    linear-gradient(135deg, #020617 0%, #0f172a 48%, #082f49 100%);
+}
+
+.premium-card {
+  @apply rounded-2xl border border-slate-200 bg-white shadow-soft;
+}
+
+.glass-card {
+  @apply rounded-2xl border border-white/15 bg-white/10 shadow-2xl backdrop-blur;
+}
+
+.accent-kicker {
+  @apply inline-flex rounded-full border border-cyan-300/30 bg-cyan-300/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-cyan-200;
 }
 
 .hero-title {

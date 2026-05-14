@@ -2,15 +2,15 @@ export const COMPANY_NAME =
   process.env.NEXT_PUBLIC_COMPANY_NAME || process.env.PUBLIC_COMPANY_NAME || "WebCrafters Studio";
 
 export const WHATSAPP_NUMBER =
-  process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || process.env.PUBLIC_WHATSAPP_NUMBER || "60123456789";
+  process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || process.env.PUBLIC_WHATSAPP_NUMBER || "60182045771";
 
 export const CONTACT_EMAIL =
   process.env.NEXT_PUBLIC_CONTACT_EMAIL || process.env.PUBLIC_CONTACT_EMAIL || "hello@webcraftersstudio.com";
 
 export const CONTACT_PHONE =
-  process.env.NEXT_PUBLIC_CONTACT_PHONE || process.env.PUBLIC_CONTACT_PHONE || "+60 12-345 6789";
+  process.env.NEXT_PUBLIC_CONTACT_PHONE || process.env.PUBLIC_CONTACT_PHONE || "+60 18-204 5771";
 
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || process.env.PUBLIC_SITE_URL || "http://localhost:3000";
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || process.env.PUBLIC_SITE_URL || "https://www.coreops.my";
 
 export const WHATSAPP_TEXT = encodeURIComponent(
   "Hi WebCrafters Studio, I would like to request a quotation for a website project."
@@ -33,8 +33,8 @@ export const NAV_LINKS = [
 ] as const;
 
 export const PROCESS_STEPS = [
-  "Consultation",
-  "Requirement gathering",
+  "Discovery",
+  "Requirement review",
   "Proposal and quotation",
   "UI/UX design",
   "Development",

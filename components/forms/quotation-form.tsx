@@ -27,11 +27,11 @@ const labels: Record<string, string> = {
   ECOMMERCE: "E-commerce",
   LANDING_PAGE: "Landing page",
   WEB_APPLICATION: "Web application",
-  DASHBOARD_SYSTEM: "Dashboard system",
+  DASHBOARD_SYSTEM: "Admin dashboard / internal system",
   GOVERNMENT_SYSTEM: "Government/agency system",
   WEBSITE_REDESIGN: "Website redesign",
   MAINTENANCE: "Maintenance",
-  OTHER: "Other",
+  OTHER: "SEO / security / custom solution",
   EMAIL: "Email",
   PHONE_CALL: "Phone call",
   WHATSAPP: "WhatsApp"
@@ -74,7 +74,7 @@ export function QuotationForm() {
       setServerError(data.message || "Submission failed. Please try again.");
       return;
     }
-    setSuccess("Your quotation request has been received. We will contact you soon.");
+    setSuccess("Thank you. We received your request. We will review your requirements and contact you within 1-2 working days.");
     form.reset();
   }
 
@@ -85,12 +85,12 @@ export function QuotationForm() {
       <input type="text" className="hidden" tabIndex={-1} autoComplete="off" {...form.register("website")} />
       <div className="grid gap-4 md:grid-cols-2">
         <div>
-          <Label htmlFor="fullName">Full name</Label>
+          <Label htmlFor="fullName">Name</Label>
           <Input id="fullName" {...form.register("fullName")} />
           {formErrors.fullName ? <p className="mt-1 text-xs text-red-600">{formErrors.fullName.message}</p> : null}
         </div>
         <div>
-          <Label htmlFor="companyName">Company / organization name</Label>
+          <Label htmlFor="companyName">Organization / company name</Label>
           <Input id="companyName" {...form.register("companyName")} />
           {formErrors.companyName ? <p className="mt-1 text-xs text-red-600">{formErrors.companyName.message}</p> : null}
         </div>
@@ -102,7 +102,7 @@ export function QuotationForm() {
           {formErrors.email ? <p className="mt-1 text-xs text-red-600">{formErrors.email.message}</p> : null}
         </div>
         <div>
-          <Label htmlFor="phone">Phone number</Label>
+          <Label htmlFor="phone">Phone / WhatsApp</Label>
           <Input id="phone" {...form.register("phone")} />
           {formErrors.phone ? <p className="mt-1 text-xs text-red-600">{formErrors.phone.message}</p> : null}
         </div>
@@ -182,26 +182,26 @@ export function QuotationForm() {
       <div className="grid gap-4 md:grid-cols-2">
         <div>
           <Label htmlFor="existingWebsiteUrl">Existing website URL</Label>
-          <Input id="existingWebsiteUrl" placeholder="https://example.com" {...form.register("existingWebsiteUrl")} />
+          <Input id="existingWebsiteUrl" {...form.register("existingWebsiteUrl")} />
           {formErrors.existingWebsiteUrl ? (
             <p className="mt-1 text-xs text-red-600">{formErrors.existingWebsiteUrl.message}</p>
           ) : null}
         </div>
         <div>
-          <Label htmlFor="fileUpload">File upload (local placeholder)</Label>
-          <Input
-            id="fileUpload"
-            type="file"
-            onChange={(event) => {
-              const file = event.target.files?.[0];
-              form.setValue("fileUrl", file ? `local-upload://${file.name}` : "");
-            }}
-          />
+          <Label htmlFor="projectReadiness">Project readiness</Label>
+          <Input id="projectReadiness" value="Initial requirement review" readOnly />
         </div>
       </div>
       <div>
         <Label htmlFor="projectDescription">Project description</Label>
-        <Textarea id="projectDescription" {...form.register("projectDescription")} />
+        <Textarea
+          id="projectDescription"
+          rows={6}
+          {...form.register("projectDescription")}
+        />
+        <p className="mt-1 text-xs text-slate-500">
+          Include goals, pages, features, references, integrations, and any deadline we should know about.
+        </p>
         {formErrors.projectDescription ? (
           <p className="mt-1 text-xs text-red-600">{formErrors.projectDescription.message}</p>
         ) : null}
