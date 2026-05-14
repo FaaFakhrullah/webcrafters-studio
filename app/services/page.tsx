@@ -38,12 +38,12 @@ export default function ServicesPage() {
             {premiumServices.map((service, index) => {
               const Icon = icons[index] || Lock;
               return (
-                <article key={service.slug} className="motion-card premium-card h-full p-6">
-                  <div className="flex flex-col gap-5 sm:flex-row">
+                <article key={service.slug} className="motion-card premium-card flex h-full flex-col p-6">
+                  <div className="flex flex-1 flex-col gap-5 sm:flex-row">
                     <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-cyan-50 text-cyan-700">
                       <Icon className="h-6 w-6" />
                     </div>
-                    <div>
+                    <div className="flex min-w-0 flex-1 flex-col">
                       <p className="text-xs font-semibold uppercase tracking-wide text-secondary">{service.category}</p>
                       <h2 className="mt-2 font-display text-2xl font-bold text-slate-950">{service.title}</h2>
                       <p className="mt-3 text-slate-600">{service.description}</p>
@@ -68,13 +68,17 @@ export default function ServicesPage() {
                           ))}
                         </ul>
                       </div>
-                      <div className="mt-5 flex flex-col gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4 sm:flex-row sm:items-center sm:justify-between">
-                        <p className="text-sm text-slate-600">
+                      <div className="mt-auto pt-6">
+                        <div className="grid gap-4 rounded-xl border border-slate-200 bg-slate-50 p-4 sm:grid-cols-[minmax(0,1fr)_10.5rem] sm:items-center">
+                          <p className="min-w-0 text-sm leading-6 text-slate-600">
                           Suggested path: <span className="font-semibold text-slate-950">{service.suggestedPackage}</span>
-                        </p>
-                        <Link href="/request-quotation">
-                          <Button size="sm">Request Scope Review</Button>
-                        </Link>
+                          </p>
+                          <Link href="/request-quotation" className="w-full">
+                            <Button size="sm" className="h-10 w-full whitespace-nowrap px-4 text-center">
+                              Request Scope Review
+                            </Button>
+                          </Link>
+                        </div>
                       </div>
                     </div>
                   </div>
